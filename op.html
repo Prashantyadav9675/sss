@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SS ENTERPRISES | Catering & Taxi Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Previous CSS remains the same until .food-gallery */
+
+        /* Enhanced Food Gallery with better image display */
+        .food-gallery {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 500px;
+            perspective: 1000px;
+            z-index: 2;
+            margin: 0 auto;
+        }
+
+        .food-carousel {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate 30s infinite linear;
+        }
+
+        .food-item {
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform-origin: center;
+            backface-visibility: hidden;
+            border: 3px solid white;
+        }
+
+        .food-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+            filter: brightness(0.95);
+        }
+
+        .food-item:hover {
+            transform: scale(1.15) !important;
+            z-index: 10;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+            border-color: var(--primary);
+        }
+
+        .food-item:hover img {
+            transform: scale(1.1);
+            filter: brightness(1.05);
+        }
+
+        /* New Image Showcase Section */
+        .image-showcase {
+            padding: 4rem 5%;
+            background: linear-gradient(to bottom, #f9f9f9, #eef2f5);
+        }
+
+        .showcase-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--dark);
+            position: relative;
+        }
+
+        .showcase-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .showcase-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s;
+            height: 300px;
+            position: relative;
+        }
+
+        .showcase-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .showcase-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .showcase-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .showcase-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        /* New Testimonial Section with Images */
+        .testimonials {
+            padding: 5rem 5%;
+            background: linear-gradient(135deg, #1A1A1A, #2D2D2D);
+            color: white;
+        }
+
+        .testimonial-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .testimonial-title::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.4s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+
+        .testimonial-author img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+            margin-right: 1rem;
+        }
+
+        .author-info h4 {
+            margin-bottom: 0.3rem;
+            color: var(--primary);
+        }
+
+        .author-info p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Adjustments for Images */
+        @media (max-width: 768px) {
+            .food-gallery {
+                width: 350px;
+                height: 350px;
+            }
+
+            .food-item {
+                width: 160px;
+                height: 160px;
+            }
+
+            .showcase-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .showcase-card {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .food-gallery {
+                width: 280px;
+                height: 280px;
+            }
+
+            .food-item {
+                width: 130px;
+                height: 130px;
+            }
+
+            .showcase-title, .testimonial-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Add this to your existing media queries */
+        @media (hover: none) {
+            .food-item:hover, .showcase-card:hover, .testimonial-card:hover {
+                transform: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Previous sections remain the same until after services section -->
+
+    <!-- New Image Showcase Section -->
+    <section class="image-showcase">
+        <h2 class="showcase-title">Our Work Gallery</h2>
+        <div class="showcase-grid">
+            <div class="showcase-card">
+                <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Catering Service">
+                <div class="showcase-caption">
+                    <h3>Premium Catering</h3>
+                    <p>Weddings, Corporate Events & Parties</p>
+                </div>
+            </div>
+            <div class="showcase-card">
+                <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Taxi Service">
+                <div class="showcase-caption">
+                    <h3>Luxury Rides</h3>
+                    <p>24/7 Taxi Services</p>
+                </div>
+            </div>
+            <div class="showcase-card">
+                <img src="https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Food Delivery">
+                <div class="showcase-caption">
+                    <h3>Food Delivery</h3>
+                    <p>Fresh & Hot Meals</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Testimonials Section -->
+    <section class="testimonials">
+        <h2 class="testimonial-title">What Our Clients Say</h2>
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    <i class="fas fa-quote-left" style="color: var(--primary); font-size: 1.5rem;"></i>
+                    <p>The catering service was exceptional! The food was delicious and the presentation was beautiful. Highly recommend SS Enterprises for any event.</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Priya Sharma">
+                    <div class="author-info">
+                        <h4>Priya Sharma</h4>
+                        <p>Wedding Client</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    <i class="fas fa-quote-left" style="color: var(--primary); font-size: 1.5rem;"></i>
+                    <p>Their taxi service is reliable and professional. The drivers are punctual and the cars are always clean. My go-to service for airport transfers.</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Rahul Verma">
+                    <div class="author-info">
+                        <h4>Rahul Verma</h4>
+                        <p>Regular Customer</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    <i class="fas fa-quote-left" style="color: var(--primary); font-size: 1.5rem;"></i>
+                    <p>We've used their catering for our corporate events multiple times. Consistent quality, great service, and they always accommodate last-minute requests.</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Neha Kapoor">
+                    <div class="author-info">
+                        <h4>Neha Kapoor</h4>
+                        <p>Corporate Client</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Previous sections remain the same from taxi booking to footer -->
+
+    <script>
+        // Previous JavaScript remains the same
+
+        // New Image Lazy Loading
+        document.addEventListener("DOMContentLoaded", function() {
+            const lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+            
+            if ("IntersectionObserver" in window) {
+                let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            let lazyImage = entry.target;
+                            lazyImage.src = lazyImage.dataset.src;
+                            lazyImage.classList.remove("lazy");
+                            lazyImageObserver.unobserve(lazyImage);
+                        }
+                    });
+                });
+
+                lazyImages.forEach(function(lazyImage) {
+                    lazyImageObserver.observe(lazyImage);
+                });
+            }
+        });
+
+        // Add this to your existing food carousel items (replace current img tags)
+        // <img data-src="your-image-url.jpg" class="lazy" alt="Food">
+    </script>
+</body>
+</html>

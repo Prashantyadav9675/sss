@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prashant Yadav - Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background: #1a1a1a;
+            color: white;
+            overflow-x: hidden;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+        .navbar h1 {
+            font-size: 1.5rem;
+            color: #00ff88;
+        }
+        .navbar button {
+            background: #00ff88;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-size: 1rem;
+            border-radius: 5px;
+        }
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: fadeIn 2s ease-in-out;
+        }
+        .hero p {
+            font-size: 1.5rem;
+            color: #ccc;
+            animation: fadeIn 3s ease-in-out;
+        }
+        .hero img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-top: 2rem;
+            border: 5px solid #00ff88;
+            animation: float 4s ease-in-out infinite;
+        }
+        .section {
+            padding: 4rem 2rem;
+            background: #222;
+            margin: 2rem 0;
+            border-radius: 10px;
+        }
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #00ff88;
+        }
+        .section p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #ccc;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+        .card {
+            background: #333;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            background: #111;
+            color: #ccc;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <h1>Prashant Yadav</h1>
+        <button onclick="scrollToSection('about')">About Me</button>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div>
+            <h1>Prashant Yadav</h1>
+            <p>Web Developer | Student | Creative Thinker</p>
+            <img src="PRASHANT.jpeg" alt="Prashant Yadav">
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <div id="about" class="section">
+        <h2>About Me</h2>
+        <p>
+            Hello! I'm Prashant Yadav, a passionate web developer and student. I love creating beautiful and functional websites.
+            Currently, I'm pursuing my studies in Computer Science and working on various projects to enhance my skills.
+        </p>
+    </div>
+
+    <!-- Education Section -->
+    <div class="section">
+        <h2>Education</h2>
+        <p>
+            - Bachelor of Science in Computer Science (Expected Graduation: 2028)<br>
+            - High School Diploma from XYZ School (2020)
+        </p>
+    </div>
+
+    <!-- Skills Section -->
+    <div class="section">
+        <h2>Skills</h2>
+        <div class="grid">
+            <div class="card">HTML</div>
+            <div class="card">CSS</div>
+            <div class="card">JavaScript</div>
+            <div class="card">Three.js</div>
+        </div>
+    </div>
+
+    <!-- Projects Section -->
+    <div class="section">
+        <h2>Projects</h2>
+        <div class="grid">
+            <div class="card">E-commerce Website</div>
+            <div class="card">Portfolio Website</div>
+            <div class="card">Open Source Contributions</div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="section">
+        <h2>Contact</h2>
+        <p>Email: prashant@example.com</p>
+        <p>Phone: +91 1234567890</p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2025 Prashant Yadav. All rights reserved.</p>
+    </div>
+
+    <!-- 3D Background -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // 3D Background Setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Add Particles
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 1000;
+        const posArray = new Float32Array(particlesCount * 3);
+
+        for (let i = 0; i < particlesCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 10;
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.02,
+            color: '#00ff88',
+            transparent: true,
+            opacity: 0.8
+        });
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+
+        camera.position.z = 5;
+
+        // Animation Loop
+        function animate() {
+            requestAnimationFrame(animate);
+            particlesMesh.rotation.x += 0.001;
+            particlesMesh.rotation.y += 0.001;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Handle Window Resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Scroll to Section Function
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
